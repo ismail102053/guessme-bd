@@ -1,0 +1,31 @@
+# Render.com "Blueprint" — ফ্রি ওয়েব সার্ভিস + Turso (ফ্রি ক্লাউড ডাটাবেস)
+# ⚠️ Render-এর ফ্রি সার্ভিসের ডিস্ক স্থায়ী নয়, তাই DB_DRIVER=turso ব্যবহার করা হয়েছে।
+# ব্যবহার: GitHub-এ পুশ করে Render → New → Blueprint → রিপো বেছে নিন; তারপর নিচের sync:false মানগুলো ড্যাশবোর্ডে বসান।
+services:
+  - type: web
+    name: guessme-bd
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: NODE_ENV
+        value: production
+      - key: APP_SECRET
+        generateValue: true          # Render নিজেই র‍্যান্ডম সিক্রেট বানায়
+      - key: DB_DRIVER
+        value: turso
+      - key: TURSO_DATABASE_URL
+        sync: false                  # নিজে বসান: libsql://...turso.io
+      - key: TURSO_AUTH_TOKEN
+        sync: false                  # নিজে বসান (গোপন)
+      - key: PUBLIC_BASE_URL
+        sync: false                  # যেমন https://guessme-bd.onrender.com (শেষে / নয়)
+      - key: TRUST_PROXY_HOPS
+        value: "1"
+      - key: AUTO_MIGRATE
+        value: "true"

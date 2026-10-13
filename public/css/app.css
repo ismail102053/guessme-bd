@@ -1,0 +1,222 @@
+/* GuessMe BD — ডিজাইন সিস্টেম (মোবাইল-ফার্স্ট, খেলাধুলাপূর্ণ, বাংলাদেশি রঙ)
+   কোনো বাহ্যিক ফন্ট/CDN নেই; সিস্টেমের বাংলা ফন্ট ব্যবহার হয় (Android, iOS, Windows, macOS-এ আছে)। */
+
+:root {
+  --bg: #fff6e5;
+  --paper: #ffffff;
+  --ink: #1c1a2e;
+  --ink-soft: #55526b;
+  --green: #0b7a57;
+  --green-dark: #07553d;
+  --green-soft: #d8f3e6;
+  --red: #f03a52;
+  --red-soft: #ffe0e4;
+  --sun: #ffc83d;
+  --sun-soft: #fff1c2;
+  --sky: #cfe8ff;
+  --line: #1c1a2e;
+  --radius: 18px;
+  --shadow: 4px 4px 0 var(--ink);
+  --shadow-sm: 2px 2px 0 var(--ink);
+  --font: "Noto Sans Bengali", "Hind Siliguri", "Kalpurush", "Nirmala UI", "Siyam Rupali", "Vrinda", "Mukti", "Lohit Bengali", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  background-image: radial-gradient(circle at 12px 12px, rgba(28, 26, 46, .07) 2px, transparent 2.5px);
+  background-size: 28px 28px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; width: 100%; max-width: 680px; margin: 0 auto; padding: 20px 16px 48px; }
+img, svg { max-width: 100%; }
+h1, h2, h3 { line-height: 1.3; margin: 0 0 .5em; font-weight: 800; }
+h1 { font-size: clamp(1.9rem, 7vw, 2.8rem); }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0 0 1em; }
+a { color: var(--green-dark); font-weight: 700; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* বট-ফাঁদ (হানিপট): মানুষ দেখে না, স্ক্রিন-রিডারও এড়ায় */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 8px; }
+
+/* ---------- হেডার/ফুটার ---------- */
+.site-header { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 3px solid var(--ink); }
+.site-header .inner { max-width: 680px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); font-weight: 900; font-size: 1.2rem; }
+.logo .mark { display: grid; place-items: center; width: 38px; height: 38px; background: var(--green); color: #fff; border: 3px solid var(--ink); border-radius: 12px; box-shadow: var(--shadow-sm); transform: rotate(-6deg); font-size: 1.1rem; }
+.logo .bd { color: var(--red); }
+.site-footer { text-align: center; padding: 24px 16px 32px; color: var(--ink-soft); font-size: .92rem; }
+.site-footer a { color: var(--ink-soft); }
+
+/* ---------- বোতাম ---------- */
+.btn {
+  appearance: none; cursor: pointer; font: inherit; font-weight: 800; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 10px 22px;
+  color: var(--ink); background: var(--sun);
+  border: 3px solid var(--ink); border-radius: 16px; box-shadow: var(--shadow);
+  transition: transform .08s ease, box-shadow .08s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.btn.green { background: var(--green); color: #fff; }
+.btn.red { background: var(--red); color: #fff; }
+.btn.white { background: #fff; }
+.btn.fb { background: #1877f2; color: #fff; }
+.btn.small { min-height: 42px; padding: 6px 14px; font-size: .95rem; border-radius: 12px; }
+.btn.block { width: 100%; }
+.btn[disabled], .btn[aria-busy="true"] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: var(--shadow); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn-row > .btn { flex: 1 1 200px; }
+.linklike { appearance: none; background: none; border: 0; padding: 0; font: inherit; font-weight: 700; color: var(--red); cursor: pointer; text-decoration: underline; }
+.spinner { width: 20px; height: 20px; border: 3px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- কার্ড/ফর্ম ---------- */
+.card { background: var(--paper); border: 3px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 20px; }
+.card.green { background: var(--green-soft); }
+.card.sun { background: var(--sun-soft); }
+.card.red { background: var(--red-soft); }
+.card.sky { background: var(--sky); }
+.muted { color: var(--ink-soft); }
+.center { text-align: center; }
+.eyebrow { display: inline-block; font-weight: 800; font-size: .85rem; background: var(--red); color: #fff; padding: 2px 12px; border: 2px solid var(--ink); border-radius: 999px; transform: rotate(-2deg); margin-bottom: 12px; }
+
+label.field { display: block; margin-bottom: 16px; font-weight: 700; }
+label.field .hint { display: block; font-weight: 500; font-size: .9rem; color: var(--ink-soft); }
+input[type="text"], textarea, select {
+  width: 100%; font: inherit; color: var(--ink); background: #fff;
+  border: 3px solid var(--ink); border-radius: 14px; padding: 11px 14px; min-height: 50px; margin-top: 6px;
+}
+input[type="text"]:focus { outline: none; box-shadow: 0 0 0 4px var(--sun); }
+input.invalid { border-color: var(--red); background: var(--red-soft); }
+.error-text { color: #b4132a; font-weight: 700; font-size: .92rem; margin: 6px 0 0; }
+.banner { border: 3px solid var(--ink); border-radius: 14px; padding: 12px 16px; margin: 0 0 16px; font-weight: 700; }
+.banner.error { background: var(--red-soft); }
+.banner.info { background: var(--sky); }
+.banner.warn { background: var(--sun-soft); }
+.counter { font-size: .85rem; color: var(--ink-soft); text-align: right; }
+
+/* ---------- ল্যান্ডিং ---------- */
+.hero { text-align: center; padding: 20px 0 8px; }
+.hero h1 .hl { background: linear-gradient(transparent 58%, var(--sun) 58%); padding: 0 6px; }
+.hero p.lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 30em; margin: 0 auto 24px; }
+.float-emoji { display: inline-block; animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-8px) rotate(4deg); } }
+.steps { display: grid; gap: 14px; margin: 24px 0; padding: 0; list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; display: flex; gap: 14px; align-items: flex-start; background: #fff; border: 3px solid var(--ink); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+.steps li::before { content: counter(s, bengali); flex: none; width: 40px; height: 40px; display: grid; place-items: center; font-weight: 900; background: var(--green); color: #fff; border: 3px solid var(--ink); border-radius: 50%; }
+.steps strong { display: block; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.chip { font: inherit; font-weight: 600; font-size: .92rem; cursor: pointer; background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 4px 12px; min-height: 36px; }
+.chip:hover { background: var(--sun-soft); }
+.my-quiz { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 2px dashed rgba(28, 26, 46, .25); }
+.my-quiz:last-child { border-bottom: 0; }
+
+/* ---------- কুইজ তৈরি ---------- */
+.q-card { position: relative; }
+.q-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.q-badge { background: var(--red); color: #fff; font-weight: 800; border: 2px solid var(--ink); border-radius: 999px; padding: 0 12px; }
+.opt-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.opt-row input[type="text"] { margin-top: 0; flex: 1; min-width: 0; }
+.correct-pick { flex: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; font-weight: 700; font-size: .85rem; background: #fff; border: 3px solid var(--ink); border-radius: 12px; padding: 0 10px; min-height: 50px; user-select: none; }
+.correct-pick input { width: 20px; height: 20px; accent-color: var(--green); margin: 0; }
+.correct-pick:has(input:checked) { background: var(--green); color: #fff; }
+.icon-btn { flex: none; width: 42px; height: 42px; display: grid; place-items: center; font: inherit; font-size: 1.1rem; cursor: pointer; background: #fff; border: 3px solid var(--ink); border-radius: 12px; }
+.icon-btn:hover { background: var(--red-soft); }
+.copy-box { display: flex; gap: 8px; align-items: stretch; margin: 8px 0 14px; }
+.copy-box input { margin: 0; font-size: .95rem; direction: ltr; text-align: left; }
+
+/* ---------- কুইজ খেলা ---------- */
+.avatar { width: 84px; height: 84px; margin: 0 auto 12px; display: grid; place-items: center; font-size: 2.4rem; font-weight: 900; color: #fff; background: var(--red); border: 4px solid var(--ink); border-radius: 50%; box-shadow: var(--shadow); }
+.progress { height: 16px; background: #fff; border: 3px solid var(--ink); border-radius: 999px; overflow: hidden; margin: 0 0 8px; }
+.progress > span { display: block; height: 100%; width: 0; background: repeating-linear-gradient(45deg, var(--green), var(--green) 10px, #12a073 10px, #12a073 20px); transition: width .3s ease; }
+.q-text { font-size: 1.35rem; font-weight: 800; margin: 12px 0 18px; }
+.options { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.option {
+  width: 100%; text-align: left; font: inherit; font-weight: 700; cursor: pointer; min-height: 58px;
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  background: #fff; color: var(--ink); border: 3px solid var(--ink); border-radius: 16px; box-shadow: var(--shadow-sm);
+  transition: transform .08s ease, background .15s ease;
+}
+.option .letter { flex: none; width: 34px; height: 34px; display: grid; place-items: center; background: var(--sun); border: 2px solid var(--ink); border-radius: 50%; font-weight: 900; }
+.option:hover { background: var(--sun-soft); }
+.option:active { transform: translate(2px, 2px); box-shadow: none; }
+.option[aria-pressed="true"] { background: var(--green); color: #fff; }
+.option[aria-pressed="true"] .letter { background: #fff; color: var(--green-dark); }
+.option.right { background: var(--green-soft); border-color: var(--green-dark); }
+.option.wrong { background: var(--red-soft); border-color: var(--red); }
+.option .tag { margin-left: auto; font-size: .85rem; font-weight: 800; white-space: nowrap; }
+.nav-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; }
+
+.score-card { text-align: center; }
+.score-num { font-size: clamp(3.6rem, 18vw, 5.5rem); font-weight: 900; line-height: 1.1; color: var(--green-dark); }
+.score-num small { font-size: .4em; color: var(--ink-soft); }
+.pop { animation: pop .6s cubic-bezier(.2, 1.6, .4, 1) both; }
+@keyframes pop { from { transform: scale(.3) rotate(-12deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+.review { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.review li { border: 3px solid var(--ink); border-radius: 14px; padding: 10px 14px; background: #fff; }
+.review li.ok { background: var(--green-soft); }
+.review li.no { background: var(--red-soft); }
+.review .qt { font-weight: 800; }
+
+/* ---------- ড্যাশবোর্ড ---------- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.stat { background: #fff; border: 3px solid var(--ink); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 10px 6px; text-align: center; }
+.stat b { display: block; font-size: 1.7rem; line-height: 1.2; }
+.stat span { font-size: .82rem; color: var(--ink-soft); font-weight: 700; }
+.bar-row { margin: 8px 0; }
+.bar-label { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; font-size: .95rem; }
+.bar { height: 14px; background: #eee; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.bar > span { display: block; height: 100%; width: 0; background: var(--sky); transition: width .5s ease; }
+.bar.correct > span { background: var(--green); }
+table.board { width: 100%; border-collapse: collapse; }
+.board-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 2px dashed rgba(28, 26, 46, .25); }
+.rank { flex: none; width: 34px; height: 34px; display: grid; place-items: center; font-weight: 900; background: var(--sun); border: 2px solid var(--ink); border-radius: 50%; }
+.board-row .who { flex: 1; min-width: 0; font-weight: 800; overflow-wrap: anywhere; }
+.board-row .who small { display: block; font-weight: 500; color: var(--ink-soft); }
+.pill { font-weight: 900; background: var(--green); color: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 0 12px; white-space: nowrap; }
+details.attempt > summary { list-style: none; cursor: pointer; }
+details.attempt > summary::-webkit-details-marker { display: none; }
+.answers-mini { margin: 6px 0 4px 44px; padding: 0; list-style: none; font-size: .92rem; }
+.answers-mini li { padding: 2px 0; }
+.danger-zone { border-style: dashed; }
+
+/* ---------- লোডিং/খালি অবস্থা ---------- */
+.skeleton { background: linear-gradient(90deg, #eee 25%, #f8f8f8 50%, #eee 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; border: 3px solid rgba(28, 26, 46, .15); border-radius: var(--radius); }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.sk-line { height: 22px; margin-bottom: 12px; }
+.sk-block { height: 120px; margin-bottom: 16px; }
+.empty { text-align: center; padding: 28px 12px; }
+.empty .big { font-size: 3rem; display: block; margin-bottom: 8px; }
+
+/* ---------- টোস্ট ---------- */
+#toasts { position: fixed; left: 0; right: 0; bottom: 16px; display: grid; justify-items: center; gap: 8px; z-index: 50; pointer-events: none; padding: 0 16px; }
+.toast { background: var(--ink); color: #fff; font-weight: 700; padding: 10px 18px; border-radius: 999px; border: 3px solid #fff; box-shadow: 0 4px 0 rgba(0, 0, 0, .25); animation: pop .35s both; }
+.toast.error { background: var(--red); }
+
+@media (min-width: 640px) {
+  body { font-size: 18px; }
+  main { padding-top: 32px; }
+  .card { padding: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+/* কপি-বোতামের লেখা ভাঙবে না */
+.copy-box .btn { white-space: nowrap; }

@@ -1,0 +1,20 @@
+{
+  "name": "guessme-bd",
+  "version": "1.0.0",
+  "description": "GuessMe BD — বাংলা ভাইরাল কুইজ চ্যালেঞ্জ ওয়েবসাইট (কোনো রেজিস্ট্রেশন ছাড়াই)",
+  "private": true,
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "migrate": "node scripts/migrate.js",
+    "test": "node --disable-warning=ExperimentalWarning --test --test-concurrency=1 \"tests/**/*.test.js\"",
+    "make:zip": "sh scripts/make-zip.sh"
+  },
+  "dependencies": {}
+}

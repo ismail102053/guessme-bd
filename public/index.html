@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b7a57">
+  <!--OG_TAGS-->
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+  <link rel="stylesheet" href="/css/app.css">
+  <script src="/js/common.js" defer></script>
+  <script src="/js/home.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a class="logo" href="/" aria-label="GuessMe BD হোম"><span class="mark" aria-hidden="true">?</span><span>GuessMe <span class="bd">BD</span></span></a>
+      <a class="btn small green" href="/create">✏️ কুইজ বানাও</a>
+    </div>
+  </header>
+  <main id="app">
+
+    <section class="hero">
+      <span class="eyebrow">🔥 নতুন ভাইরাল চ্যালেঞ্জ</span>
+      <h1>বন্ধুরা তোমাকে <span class="hl">কতটা চেনে?</span> <span class="float-emoji" aria-hidden="true">🤔</span></h1>
+      <p class="lead">নিজের সম্পর্কে কয়েকটা প্রশ্ন বানাও, লিংক শেয়ার করো, আর দেখো কে কত নম্বর পায়। কোনো রেজিস্ট্রেশন বা লগইন লাগবে না!</p>
+      <p><a class="btn red" href="/create">🚀 এখনই কুইজ বানাও</a></p>
+    </section>
+
+    <section id="my-quizzes" class="card sun" hidden aria-labelledby="my-title">
+      <h2 id="my-title">📂 আমার কুইজগুলো</h2>
+      <p class="muted">এই ফোন/ব্রাউজারে তৈরি করা কুইজ — ট্যাপ করলেই রেজাল্ট দেখতে পারবে।</p>
+      <div id="my-list"></div>
+    </section>
+
+    <h2 class="center">কীভাবে কাজ করে?</h2>
+    <ol class="steps">
+      <li><div><strong>নিজের কুইজ বানাও</strong><span class="muted">৩ থেকে ১৫টি প্রশ্ন লেখো, প্রতিটিতে সঠিক উত্তরটি বেছে দাও।</span></div></li>
+      <li><div><strong>লিংক শেয়ার করো</strong><span class="muted">Facebook, Messenger বা WhatsApp-এ বন্ধুদের চ্যালেঞ্জ দাও।</span></div></li>
+      <li><div><strong>রেজাল্ট দেখো</strong><span class="muted">কে কত পেল, কোন প্রশ্নে সবাই ভুল করল — সব তোমার গোপন ড্যাশবোর্ডে।</span></div></li>
+    </ol>
+
+    <section class="card green">
+      <h2>🔒 তোমার তথ্য নিরাপদ</h2>
+      <p>অ্যাকাউন্ট নেই, ইমেইল নেই, ফোন নম্বর নেই। রেজাল্ট দেখার গোপন লিংক শুধু তোমার কাছেই থাকে। <a href="/privacy">গোপনীয়তা নীতি পড়ো</a></p>
+    </section>
+
+    <p class="center"><a class="btn green" href="/create">✏️ কুইজ বানানো শুরু করো</a></p>
+
+  </main>
+  <footer class="site-footer">
+    <p>© GuessMe BD · বাংলায় বানানো, বন্ধুদের জন্য 💚 · <a href="/privacy">গোপনীয়তা নীতি</a></p>
+  </footer>
+  <noscript><p class="banner error">এই সাইট চালাতে JavaScript চালু করতে হবে।</p></noscript>
+</body>
+</html>
